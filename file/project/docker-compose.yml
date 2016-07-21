@@ -1,0 +1,6 @@
+version: '2'
+services:
+  wagon:
+    build: .
+    labels:
+      main_service: "True"

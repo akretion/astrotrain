@@ -1,0 +1,20 @@
+development:
+  # use voodoo inspect on your odoo project to get the hostname
+  url: http://akreshop_odoo_run_1:8069
+  database: db
+  username: admin
+  password: admin
+  authenticate_ooorest: true
+  bootstrap: true
+  global_context:
+    'lang': en_US
+  aliases:
+    en_US:
+      products: product.template
+  param_keys:
+    product.template: name
+  proxies:
+    "/web/image": http://akreshop_odoo_run_1:8069/web/image
+    "/web/content": http://akreshop_odoo_run_1:8069/web/content
+    "/shop/cart": http://akreshop_odoo_run_1:8069/shop/cart
+
