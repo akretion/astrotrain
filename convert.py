@@ -68,8 +68,8 @@ for old, new in REPLACE:
 
 
 print "Inject theme in view"
-# TODO do not inject in theme :S
-os.system("""cd app/views/pages; find ./ -type f -exec sed -i "1s/^/{% extends theme %}\n{% block 'content' %}\n/" {} \;""")
-print 'lal'
+os.system('mv app/views/pages/theme.liquid app/views/theme.liquid')
+os.system("""cd app/views/pages; find ./ -type f ! -name 'theme.liquid' -exec sed -i "1s/^/{% extends theme %}\\n{% block 'content' %}\\n/" {} \;""")
 os.system('cd app/views/pages/; echo "{% endblock %}" | tee -a *.liquid')
+os.system('mv app/views/theme.liquid app/views/pages/theme.liquid')
 os.system('cd app/views/pages/customers; echo "{% endblock %}" | tee -a *.liquid')
