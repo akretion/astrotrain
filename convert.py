@@ -67,6 +67,15 @@ setting = json.loads(f.read())
 
 for key, value in setting['presets']['Default'].items():
     REPLACE.append(('{{ settings.%s }}' % key, '%s' % value))
+    if value == "":
+        value = "''"
+    elif value == False:
+        value = "false"
+    elif value == True:
+        value = "true"
+    elif value == None:
+        value = "nil"
+    REPLACE.append((' settings.%s ' % key, ' %s ' % str(value))
 
 for old, new in REPLACE:
     cmd = 'find ./ -path ./.git -prune -o -type f -readable -writable -exec sed -i "s/%s/%s/g" {} \;' % (old, new)
