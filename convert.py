@@ -30,8 +30,8 @@ TODO = [
 'git rm config-sample.yml bower.json circle.yml README.md repodb.yml',
 'mkdir app/content_types',
 'mkdir data',
-'cp ../Astrotrain/file/config/* config/',
-'cp ../Astrotrain/file/project/* .',
+'cp ../astrotrain/file/config/* config/',
+'cp ../astrotrain/file/project/* .',
 ]
 #
 
