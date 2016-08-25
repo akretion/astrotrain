@@ -2,6 +2,13 @@
 import os
 import json
 
+print "resetting template to last git revision for idempotence..."
+cmd = 'rm -rf app; rm -rf public/stylesheets; rm public/javascripts; rm -rf  rm -rf data'
+os.system(cmd)
+cmd = 'git reset --hard HEAD'
+print cmd
+os.system(cmd)
+
 TODO = [
 'mkdir -p app/views',
 'git mv snippets app/views/',
