@@ -75,13 +75,23 @@ for key, value in setting['presets']['Default'].items():
         value = "true"
     elif value == None:
         value = "nil"
-    REPLACE.append((' settings.%s ' % key, ' %s ' % str(value))
+    elif type(value) == unicode:
+        value = '\\"%s\\"' % (value,)
+    REPLACE.append((' settings.%s ' % key, ' %s ' % value))
 
 for old, new in REPLACE:
     cmd = 'find ./ -path ./.git -prune -o -type f -readable -writable -exec sed -i "s/%s/%s/g" {} \;' % (old, new)
     print cmd
     os.system(cmd)
 
+# comment logic inside scss:
+cmds = ['find ./public -path ./.git -prune -o -type f -readable -writable -exec sed -i "s/{% /\/\/{ %/g" {} \;'
+        ]
+for cmd in cmds:
+    print cmd
+    os.system(cmd)
+
+# TODO deal with liquid inside js files too
 
 print "Inject theme in view"
 os.system('mv app/views/pages/theme.liquid app/views/theme.liquid')
@@ -89,3 +99,6 @@ os.system("""cd app/views/pages; find ./ -type f ! -name 'theme.liquid' -exec se
 os.system('cd app/views/pages/; echo "{% endblock %}" | tee -a *.liquid')
 os.system('mv app/views/theme.liquid app/views/pages/theme.liquid')
 os.system('cd app/views/pages/customers; echo "{% endblock %}" | tee -a *.liquid')
+
+os.system("""cd app/views/pages; find ./ -type f -exec sed -i "s/{{ content_for_layout }}/\\n{% block 'content' %}\\n{% endblock %}/" {} \;""")
+
